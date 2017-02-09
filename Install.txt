@@ -1,4 +1,5 @@
 Steps to generate Hubot and run it
+______________________________________
 1.  Install expat library in system
 For CentOS
 yum install libexpat1-devel 
@@ -25,4 +26,22 @@ yo hubot
 9.  Install hubot-hipchat and hubot-elasticsearch 
 Npm install hubot-hipchat –save
 Npm install hubot-elasticsearch –save
+____________________________________________________________
+Once the installation is complete create a script to export the valiable
+required to start with its adoptor
+
+#!/bin/bash
+#Hipchat user information from account settings
+export HUBOT_HIPCHAT_JID="***********"
+export HUBOT_HIPCHAT_PASSWORD="**********"
+#it will work for all room as of now, we can put a single room name as well
+export HUBOT_HIPCHAT_ROOMS="$ROOMENAME OR 'All'"
+#integration hangout as well here
+# https://github.com/hubot-scripts/hubot-google-hangouts
+export HUBOT_GOOGLE_HANGOUTS_DOMAIN='PUT YOUR DOMAIN HANGOUT URL HERE'
+to export port for http listener
+export PORT=8585
+now start the hhubot with hipchat adapter
+bin/hubot --adapter hipchat -n "RobOt"
+__________________________________________________________
 
