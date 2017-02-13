@@ -8,6 +8,8 @@
 #
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
+cheerio = require 'cheerio'
+
 module.exports = (robot) ->
 
    robot.hear /badger/i, (res) ->
@@ -104,3 +106,16 @@ module.exports = (robot) ->
    robot.respond /sleep it off/i, (res) ->
      robot.brain.set 'totalSodas', 0
      res.reply 'zzzzz'
+   
+
+   robot.respond /http(s?) status (.*)/i, (msg) ->
+     httpCode = msg.match[2]
+     msg.http('https://en.wikipedia.org/wiki/List_of_HTTP_status_codes').get() (err, res, body) ->
+          $ = cheerio.load(body)
+          statusCode = $('#'+httpCode).parent().text()
+          if statusCode
+            msg.send statusCode
+            msg.send "http://en.wikipedia.org/wiki/List_of_HTTP_status_codes##{httpCode}"
+          else
+            msg.send "HTTP status code '#{httpCode}' doesn't exist. Ironically,
+this would be HTTP Error 404."
