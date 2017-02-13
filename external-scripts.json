@@ -11,5 +11,6 @@
   "hubot-shipit",
   "hubot-elasticsearch",
   "hubot-reminder-bot",
-  "hubot-google-hangouts"
+  "hubot-google-hangouts",
+  "hubot-where-are-you"
 ]
